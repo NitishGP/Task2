@@ -62,10 +62,10 @@ exports.createOrder = async () => {
     return response.data.links.find(link => link.rel === 'approve').href
 }
 
-exports.captureOrder = async (orderId) => {
+exports.capturePayment = async (orderId) => {
     const accessToken = await generateAccessToken()
     const response = await axios({
-        url: process.env.PAYPAL_BASE_URL + `/v2/checkout/orders/${orderId}/authorize`,
+        url: process.env.PAYPAL_BASE_URL + `/v2/checkout/orders/${orderId}/capture`,
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -73,6 +73,6 @@ exports.captureOrder = async (orderId) => {
             'Authorization': 'Bearer ' + accessToken
         }
     })
-
+    console.log(response.data)
     return response.data
 }

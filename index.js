@@ -21,7 +21,7 @@ app.post('/pay', async (req,res) => {
 
 app.get('/complete-order',async (req,res) => {
     try{
-        await paypal.captureOrder(req.query.token)
+        await paypal.capturePayment(req.query.token)
         res.send("Thank you for your generous donation.")
     }catch(error){
         res.send('Error: ' + error)
